@@ -83,11 +83,3 @@ java -cp "bin;src/main/postgresql-42.7.9.jar" main.Main
 ```
 
 ---
-
----
-
-## 📝 Ejemplo de Log Generado
-
-Cada ejecución genera un reporte detallado en `simulacion.log`:
-
-
