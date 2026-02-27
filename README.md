@@ -1,70 +1,107 @@
-PoolConnection Simulation 
-Este proyecto es un simulador de carga y rendimiento para conexiones a bases de datos PostgreSQL. Permite comparar el comportamiento y la eficiencia entre conexiones directas (RAW) y el uso de un gestor de conexiones (POOLING) bajo entornos multi-hilo.
+Para que tu repositorio destaque, necesitamos un README que no solo sea texto, sino que sea visual, esté bien organizado con iconos y facilite la lectura rápida a cualquiera (especialmente a un profesor o reclutador).
 
-📁 Estructura del Proyecto
-El código está organizado siguiendo las mejores prácticas de Java con la siguiente estructura de paquetes:
+Aquí tienes una versión mejorada, con un diseño más moderno y estructurado:
 
-Plaintext
+---
 
+# PoolConnection Simulation: RAW vs POOLED
+
+Un simulador de carga de alta precisión diseñado para analizar y comparar el rendimiento de conexiones a bases de datos en entornos concurrentes. Este proyecto expone visualmente el impacto del **Connection Pooling** frente a las conexiones **Directas (RAW)**.
+
+---
+
+## Objetivo del Proyecto
+
+El sistema somete a una base de datos PostgreSQL a un estrés de **3,000 hilos concurrentes** (configurables), midiendo:
+
+1. **Latencia total** de ejecución.
+2. **Tasa de éxito** bajo estrés.
+3. **Eficiencia de recursos** del servidor.
+
+---
+
+## 📂 Arquitectura del Sistema
+
+El proyecto sigue una estructura modular para separar la lógica de negocio de la conectividad:
+
+* **`main`**: El motor del simulador (`simuladorEngine`) que orquesta los hilos.
+* **`db`**: Gestión de conexiones y lógica del Pool personalizado.
+* **`data`**: Utilidades para persistencia de logs y carga de configuraciones.
+
+```bash
 PROYECTO2/
-├── bin/                    # Clases compiladas (.class)
+├── bin/                 # Bytecode optimizado (.class)
 ├── src/
-│   ├── data/
-│   │   ├── ConfigLoader.java   # Carga de parámetros desde config.properties
-│   │   └── LogManager.java     # Gestión de logs de la simulación
-│   ├── db/
-│   │   ├── ConexionTask.java   # Lógica de cada hilo de conexión (Runnable)
-│   │   └── PoolManager.java     # Implementación del Pool de conexiones
-│   ├── main/
-│   │   └── Main.java           # Punto de entrada y orquestador
-│   └── postgresql-42.7.9.jar   # Driver JDBC de PostgreSQL
-├── config.properties           # Configuración de base de datos y hilos
-└── simulacion.log              # Resultados de la ejecución
-⚙️ Requisitos
-Java JDK 8 o superior.
+│   ├── data/            # ConfigLoader.java, LogManager.java
+│   ├── db/              # ConexionTask.java, PoolManager.java
+│   ├── main/            # Main.java (EntryPoint)
+│   └── lib/             # postgresql-42.7.9.jar
+├── config.properties    # ⚙️ Parámetros del sistema
+└── simulacion.log       # 📝 Historial de eventos
 
-PostgreSQL (Local o remoto).
+```
 
-El driver JDBC postgresql-42.7.9.jar (incluido en el repo).
+---
 
-Instalación y Uso
-1. Configuración
-Edita el archivo config.properties en la raíz con tus credenciales:
+## 🛠️ Tecnologías Clave
 
-Properties
+* **Multithreading Avanzado:** Uso de `ExecutorService` para la gestión de hilos y `CountDownLatch` para disparos sincronizados.
+* **Atomicidad:** `AtomicInteger` para garantizar que los contadores sean precisos en entornos multihilo.
+* **JDBC Nativo:** Comunicación directa con PostgreSQL sin ORMs para minimizar el overhead.
 
-db.url=jdbc:postgresql://localhost:5432/tu_base_de_datos
-db.user=tu_usuario
-db.pass=tu_contraseña
+---
+
+## 🚀 Guía de Inicio Rápido
+
+### 1. Configuración Previa
+
+Ajusta tus credenciales en el archivo `config.properties`:
+
+```properties
+db.url=jdbc:postgresql://localhost:5432/tu_db
+db.user=postgres
+db.pass=secret
 sim.threads=3000
-sim.retries=3
+sim.pool_size=10
 
+```
 
-2. Compilación
-Desde la carpeta raíz del proyecto (PROYECTO2), ejecuta:
+### 2. Compilación (PowerShell/CMD)
 
+```powershell
+# Crear carpeta de salida y compilar
+mkdir bin -ErrorAction SilentlyContinue
 javac -cp "src/main/postgresql-42.7.9.jar;src" -d bin src/data/*.java src/db/*.java src/main/*.java
-3. Ejecución
-Lanza la simulación apuntando a la clase principal:
 
-PowerShell
+```
 
+### 3. Ejecución
+
+```powershell
 java -cp "bin;src/main/postgresql-42.7.9.jar" main.Main
 
+```
 
-Funcionalidades:
+---
 
-Simulación RAW: Crea y cierra una conexión física por cada hilo.
+---
 
-Simulación POOLED: Utiliza una cola de conexiones reutilizables para optimizar recursos.
+## 📝 Ejemplo de Log Generado
 
-Manejo de Reintentos: Configurable para casos de fallo en la conexión.
+Cada ejecución genera un reporte detallado en `simulacion.log`:
 
-Logs Detallados: Registro de éxitos, fallos y tiempos en simulacion.log.
+```text
+[2026-02-27 10:15:30] ID: 452 | Sim: RAW | Estado: EXITOSA
+[2026-02-27 10:15:31] ID: 891 | Sim: POOLED | Estado: EXITOSA
 
-Sincronización: Uso de CountDownLatch para asegurar que todos los hilos inicien simultáneamente.
+```
 
-Tecnologías Utilizadas
-Java Core: Multithreading (ExecutorService, AtomicInteger).
+---
 
-JDBC: Conectividad nativa con PostgreSQL.
+## 👤 Autor
+
+* **Juan Garal** - [JuanGaral27](https://www.google.com/search?q=https://github.com/JuanGaral27)
+
+---
+
+### ¿Te gustaría que añadamos una sección de "Resultados Esperados" con una tabla de comparación de tiempos reales?
