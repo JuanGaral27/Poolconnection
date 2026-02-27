@@ -90,18 +90,4 @@ java -cp "bin;src/main/postgresql-42.7.9.jar" main.Main
 
 Cada ejecución genera un reporte detallado en `simulacion.log`:
 
-```text
-[2026-02-27 10:15:30] ID: 452 | Sim: RAW | Estado: EXITOSA
-[2026-02-27 10:15:31] ID: 891 | Sim: POOLED | Estado: EXITOSA
 
-```
-
----
-
-## 👤 Autor
-
-* **Juan Garal** - [JuanGaral27](https://www.google.com/search?q=https://github.com/JuanGaral27)
-
----
-
-### ¿Te gustaría que añadamos una sección de "Resultados Esperados" con una tabla de comparación de tiempos reales?
