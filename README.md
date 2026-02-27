@@ -1,6 +1,3 @@
-Para que tu repositorio destaque, necesitamos un README que no solo sea texto, sino que sea visual, esté bien organizado con iconos y facilite la lectura rápida a cualquiera (especialmente a un profesor o reclutador).
-
-Aquí tienes una versión mejorada, con un diseño más moderno y estructurado:
 
 ---
 
